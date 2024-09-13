@@ -4,7 +4,7 @@ metadata:
   name: pacman-green
   namespace: pacman-app
   labels:
-    name: pacman
+    name: pacman-green
     app.kubernetes.io/name: pacman
 spec:
   type: ClusterIP
@@ -13,5 +13,5 @@ spec:
       targetPort: 8080
       protocol: TCP
   selector:
-    name: pacman
+    name: pacman-green
     app.kubernetes.io/name: pacman

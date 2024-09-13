@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    name: pacman
+    name: pacman-green
     app.kubernetes.io/name: pacman
   name: pacman-green
   namespace: pacman-app
@@ -10,17 +10,17 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-      name: pacman
+      name: pacman-green
       app.kubernetes.io/name: pacman
   template:
     metadata:
       labels:
-        name: pacman
+        name: pacman-green
         app.kubernetes.io/name: pacman
     spec:
       containers:
       - image: quay.io/jpacker/nodejs-pacman-app:green
-        name: pacman
+        name: pacman-green
         ports:
         - containerPort: 8080
           name: http-server
