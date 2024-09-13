@@ -5,11 +5,23 @@ metadata:
   namespace: pacman-app
   labels:
     app.kubernetes.io/name: pacman
+annotations:
+  haproxy.router.openshift.io/balance: roundrobin
+  haproxy.router.openshift.io/disable_cookies: 'true'
+
 spec:
   path: "/"
   to:
     kind: Service
     name: pacman
+    weight: 50
+  alternateBackends:
+    - kind: Service
+      name: pacman-green
+      weight: 50
+  port:
+    targetPort: 8080
+  wildcardPolicy: None
   tls:
     termination: edge
     insecureEdgeTerminationPolicy: Redirect
