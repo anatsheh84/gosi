@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    name: pacman-green
+    app.kubernetes.io/name: pacman-green
+  name: pacman-green
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      name: pacman-green
+      app.kubernetes.io/name: pacman-green
+  template:
+    metadata:
+      labels:
+        name: pacman-green
+        app.kubernetes.io/name: pacman-green
+    spec:
+      containers:
+      - image: quay.io/jpacker/nodejs-pacman-app:green
+        name: pacman-green
+        ports:
+        - containerPort: 8080
+          name: http-server
