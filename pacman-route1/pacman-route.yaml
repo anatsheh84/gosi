@@ -5,10 +5,6 @@ metadata:
   namespace: pacman-app
   labels:
     app.kubernetes.io/name: pacman
-annotations:
-  haproxy.router.openshift.io/balance: roundrobin
-  haproxy.router.openshift.io/disable_cookies: 'true'
-
 spec:
   path: "/"
   to:
@@ -25,3 +21,6 @@ spec:
   tls:
     termination: edge
     insecureEdgeTerminationPolicy: Redirect
+  annotations:
+  haproxy.router.openshift.io/balance: roundrobin
+  haproxy.router.openshift.io/disable_cookies: 'true'
