@@ -18,7 +18,7 @@ spec:
         app.kubernetes.io/name: pacman
     spec:
       containers:
-      - image: httpd:alpine
+      - image: centos:latest
         name: pacman-load
         command: ["/bin/sh", "-c"]
-        args: ["while true; do curl https://pacman-111-4.apps.rosa-fxnlv.w102.p1.openshiftapps.com && sleep 1; done"]
+        args: ["while true; do w https://pacman-111-4.apps.rosa-fxnlv.w102.p1.openshiftapps.com && sleep 1; done"]
