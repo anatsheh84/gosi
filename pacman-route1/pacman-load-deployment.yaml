@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/name: pacman
   name: pacman-load
 spec:
-  replicas: 1
+  replicas: 50
   selector:
     matchLabels:
       name: pacman-load
