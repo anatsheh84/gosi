@@ -3,19 +3,19 @@ kind: Deployment
 metadata:
   labels:
     name: pacman-blue
-    app.kubernetes.io/name: pacman-blue
+    app.kubernetes.io/name: pacman
   name: pacman-blue
 spec:
   replicas: 5
   selector:
     matchLabels:
       name: pacman-blue
-      app.kubernetes.io/name: pacman-blue
+      app.kubernetes.io/name: pacman
   template:
     metadata:
       labels:
         name: pacman-blue
-        app.kubernetes.io/name: pacman-blue
+        app.kubernetes.io/name: pacman
     spec:
       containers:
       - image: quay.io/jpacker/nodejs-pacman-app:latest
