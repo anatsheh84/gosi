@@ -12,7 +12,15 @@ spec:
   path: "/"
   to:
     kind: Service
-    name: pacman
+    name: pacman-blue
+    weight: 50
+  alternateBackends:
+    - kind: Service
+      name: pacman-green
+      weight: 50
+  port:
+    targetPort: 8080
   tls:
     termination: edge
     insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None
