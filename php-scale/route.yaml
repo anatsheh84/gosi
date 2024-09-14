@@ -1,0 +1,28 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: split
+  annotations:
+    haproxy.router.openshift.io/balance: roundrobin
+    haproxy.router.openshift.io/disable_cookies: 'true'
+  labels:
+    app: scale
+    app.kubernetes.io/component: scale
+    app.kubernetes.io/instance: scale
+    app.kubernetes.io/name: scale
+    app.kubernetes.io/part-of: scale01
+    app.openshift.io/runtime: php
+    app.openshift.io/runtime-version: 8.1-ubi9
+spec:
+  host: split-1-scale-01.apps.rosa-fxnlv.w102.p1.openshiftapps.com
+  path: /
+  to:
+    kind: Service
+    name: scale
+    weight: 100
+  port:
+    targetPort: 8080-tcp
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None
