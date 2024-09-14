@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    name: stress
+    app.kubernetes.io/name: pacman
+  name: stress
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      name: stress
+      app.kubernetes.io/name: pacman
+  template:
+    metadata:
+      labels:
+        name: stress
+        app.kubernetes.io/name: pacman
+    spec:
+      containers:
+      - image: registry.access.redhat.com/rhscl/httpd-24-rhel7
+        name: stress
+        command: ["/bin/sh", "-c"]
+        args: ["while true; do ab -dSrk -c 20 -n 50000000 https://pacman-111-4.apps.rosa-fxnlv.w102.p1.openshiftapps.com && sleep 1; done"]
