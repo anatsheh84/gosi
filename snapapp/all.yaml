@@ -1,0 +1,84 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: image-app
+  name: image-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: image-app
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: image-app
+    spec:
+      containers:
+      - name: image-app
+        image: quay.io/redhattraining/image-tool:latest
+        ports:
+        - containerPort: 5000
+        resources: {}
+        volumeMounts:
+        - name: image-tool-storage
+          mountPath: "/var/storage"
+      volumes:
+      - name: image-tool-storage
+        persistentVolumeClaim:
+          claimName: image-app
+      securityContext: {}
+      serviceAccount: image-app
+      serviceAccountName: image-app
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: image-app
+  name: image-app
+spec:
+  ports:
+  - name: image-app
+    port: 80
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: image-app
+  type: LoadBalancer
+status:
+  loadBalancer: {}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: image-app
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: image-app
+spec:
+  accessModes:
+  - ReadWriteOnce
+  #  storageClassName: ocs-storagecluster-ceph-rbd
+  storageClassName: ocs-storagecluster-cephfs
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: image-app
+  name: image-app
+spec:
+  tls:
+    termination: edge
+  to:
+    kind: Service
+    name: image-app
+    weight: null
