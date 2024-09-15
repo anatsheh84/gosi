@@ -1,0 +1,26 @@
+spec:
+  disabled: false
+  remediationAction: enforce
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-pvc
+        spec:
+          remediationAction: enforce
+          severity: low
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                kind: LimitRange
+                apiVersion: v1
+                metadata:
+                  name: pvc-range
+                spec:
+                  limits:
+                    - type: "PersistentVolumeClaim"
+                      min:
+                        storage: "1Gi"
+                      max:
+                        storage: "50Gi"
